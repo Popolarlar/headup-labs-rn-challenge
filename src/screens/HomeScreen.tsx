@@ -1,10 +1,48 @@
+import ArticleCard from 'components/ArticleCard'
+import useFetchNews from 'hooks/useFetchNews'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native'
+import { IArticle } from 'types'
 
 export default function HomeScreen() {
+  const [page, setPage] = React.useState(1)
+  const { isLoading, hasMorePage, articles } = useFetchNews({ page })
+
+  const loadNextPage = React.useCallback(
+    () => {
+      if (isLoading || !hasMorePage) {
+        return
+      }
+      setPage(prev => prev + 1)
+    },
+    [isLoading, hasMorePage, page],
+  )
+
+  const renderItem = ({ item, index }: { item: IArticle; index: number }) => <ArticleCard article={item} />
+
+  const renderFooter = () => {
+    return (
+      <View>
+        <ActivityIndicator animating={isLoading} size="large" />
+      </View>
+    )
+  }
+  const renderDivider = () => <View style={{ marginBottom: 8 }} />
+
+
+
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <FlatList
+        data={articles}
+        renderItem={renderItem}
+        keyExtractor={item => item.title}
+        onEndReached={loadNextPage}
+        onEndReachedThreshold={0.5}
+        ItemSeparatorComponent={renderDivider}
+        ListFooterComponent={renderFooter}
+        contentContainerStyle={styles.content}
+      />
     </View>
   )
 }
@@ -12,7 +50,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  content: {
+    margin: 8
+  }
 })

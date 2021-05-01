@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react'
 import DetailsScreen from 'screens/DetailsScreen';
 import HomeScreen from 'screens/HomeScreen';
+import { RootStackParamList } from 'types';
 
 export default function Navigation() {
   return (
@@ -12,7 +13,7 @@ export default function Navigation() {
   );
 }
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 // const screenOptionStyle = { headerShown: false }
 
 function RootNavigator() {
