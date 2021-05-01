@@ -27,7 +27,7 @@ export default function HomeScreen() {
       </View>
     )
   }
-  const renderDivider = () => <View style={{ marginBottom: 8 }} />
+  const renderDivider = () => <View style={{ marginBottom: 16 }} />
 
 
 
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    margin: 8
+    margin: 16
   }
 })

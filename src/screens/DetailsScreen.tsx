@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { RootRouteProps } from 'types';
 import * as Linking from 'expo-linking';
+import { formatDate } from 'libs/date';
 
 export default function DetailsScreen() {
   const route = useRoute<RootRouteProps<'Details'>>();
@@ -17,27 +18,57 @@ export default function DetailsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text onPress={handlePress}>{title}</Text>
-      <Text>{author}</Text>
-      <Text>{publishedAt}</Text>
+      <TouchableOpacity onPress={handlePress}>
+        <Text style={styles.title}>{title}</Text>
+      </TouchableOpacity>
+      <Text style={styles.text} >{formatDate(publishedAt)} {author}</Text>
       <View style={styles.imgWrap}>
         <Image
           source={{ uri: urlToImage }}
           style={styles.img} />
       </View>
-      <Text>{content}</Text>
+      <Text style={styles.text}>{content}</Text>
+      <TouchableOpacity style={styles.action} onPress={handlePress}>
+        <Text style={styles.actionText}>read more</Text>
+      </TouchableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16
+    padding: 16,
+    margin: 16,
+    borderRadius: 16,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 8,
+    color: "#393939"
+  },
+  action: {
+    position: "absolute",
+    right: 16,
+    bottom: 16,
+    backgroundColor: "#a0a0a0",
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  actionText: {
+    fontSize: 18,
+    color: "#ffff",
+  },
+  text: {
+    fontSize: 18,
+    color: "#393939"
   },
   imgWrap: {
     height: "30%",
-    resizeMode: "contain"
+    resizeMode: "contain",
+    marginVertical: 8,
   },
   img: {
     position: 'absolute',
