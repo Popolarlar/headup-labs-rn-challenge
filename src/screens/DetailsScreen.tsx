@@ -2,14 +2,22 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { RootRouteProps } from 'types';
+import * as Linking from 'expo-linking';
 
 export default function DetailsScreen() {
   const route = useRoute<RootRouteProps<'Details'>>();
   const { title, author, publishedAt, urlToImage, content, url } = route.params.article
 
+  const handlePress = async () => {
+    const canOpen = await Linking.canOpenURL(url)
+    if (canOpen) {
+      Linking.openURL(url);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text>{title}</Text>
+      <Text onPress={handlePress}>{title}</Text>
       <Text>{author}</Text>
       <Text>{publishedAt}</Text>
       <View style={styles.imgWrap}>
