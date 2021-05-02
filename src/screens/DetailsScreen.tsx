@@ -1,8 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native'
 import { useRoute } from '@react-navigation/native';
 import { RootRouteProps } from 'types';
-import * as Linking from 'expo-linking';
 import { formatDate } from 'libs/date';
 
 export default function DetailsScreen() {
