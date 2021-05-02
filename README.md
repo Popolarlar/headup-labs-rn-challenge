@@ -4,13 +4,11 @@
 This is a simple news feed app using React Native.
 
 ## Libraries
-- expo
 - react-navigation
 
 ## Run
-```npm start```
-
-```yarn start```
+```yarn ios```
+```yarn android```
 
 ## Author
 Ming-jin Yeh
